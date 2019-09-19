@@ -14,7 +14,7 @@ def page_links(url):
     
     links = []
     
-    for lnk in linklist:
+    for lnk in home_links:
         
         try:
             source = requests.get(lnk).text
