@@ -57,3 +57,23 @@ def textfromlink(linklist):
     fulltext_string = ' '.join(fulltext_list)
 
     return fulltext_string
+
+def textfromtitles(linklist):
+
+    titles_texts = []
+
+    for link in linklist:
+        source = requests.get(link).text
+        soup = BeautifulSoup(source, 'html.parser')
+        texts = soup.find_all('blockquote')
+
+        title_text = []
+        if 'full.html' in link:
+            for text in texts:
+                for txt in text.find_all('a'):
+                    title_text.append(txt.text)
+            title_text_string = ' '.join(title_text)
+    
+        titles_texts.append(title_text_string)
+    
+    return titles_texts
