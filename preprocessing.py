@@ -11,6 +11,7 @@ def text_data(text):
     word_tokens = word_tokenize(text)
     sent_tokens = sent_tokenize(text)
 
+    # Remove punctuation and retain words
     clean_word_tokens = RegexpTokenizer(r'\w+').tokenize(text)
 
     # Let's filter the stopwords
