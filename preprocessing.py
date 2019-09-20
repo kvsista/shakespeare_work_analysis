@@ -2,7 +2,6 @@ import nltk
 # nltk.download('all')
 from nltk.tokenize import sent_tokenize, word_tokenize, RegexpTokenizer
 from nltk.probability import FreqDist
-from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 
 def text_data(text):
