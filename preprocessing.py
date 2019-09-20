@@ -24,5 +24,8 @@ def text_data(text):
     # Let's look at the frequency of distribution
     words_fdist = FreqDist(tagged_filtered_clean_word_tokens)
 
-    return clean_word_tokens, filtered_clean_word_tokens, tagged_filtered_clean_word_tokens, word_tokens, sent_tokens, words_fdist
+    # Named Entity Recognition for the tagged_filtered_clean_word_tokens
+    namedEnt = nltk.ne_chunk(tagged_filtered_clean_word_tokens)
+
+    return clean_word_tokens, filtered_clean_word_tokens, tagged_filtered_clean_word_tokens, word_tokens, sent_tokens, words_fdist, namedEnt
 
