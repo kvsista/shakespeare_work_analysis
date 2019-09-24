@@ -6,7 +6,7 @@ def page_links(url):
     This function will a get a list of all the links in the home page of website.
     """
     source = requests.get(url).text # Get the html text from the url
-    soup = BeautifulSoup(source, 'lxml') # Create a soup using the 'lxml' parser
+    soup = BeautifulSoup(source, 'html.parser') # Create a soup using the 'lxml' parser
     urls = soup.find_all('a') # Get a list of urls from the 'a' tags
     
     home_links = []
