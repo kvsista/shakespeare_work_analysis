@@ -45,36 +45,18 @@ def textfromlink(linklist):
     fulltext_list = []
 
     for link in linklist:
-        source = requests.get(link).text
-        soup = BeautifulSoup(source, 'html.parser')
-        texts = soup.find_all('blockquote')
-
         if 'full.html' in link:
-            for text in texts:
-                for txt in text.find_all('a'):
-                    fulltext_list.append(txt.text)
-    
-    fulltext_string = ' '.join(fulltext_list)
+            source = requests.get(link).text
+            soup = BeautifulSoup(source, 'html.parser')
+            blockquotes = soup.find_all('blockquote')
 
-    return fulltext_string
+            text_string = []
+            for blockquote in blockquotes:
+                a_tags_text = []
+                for txt in blockquote.find_all('a'):
+                    a_tags_text.append(txt.text)
+                text_string.append(' '.join(a_tags_text))
+            
+            fulltext_list.append(text_string)
 
-# def textfromtitles(linklist):
-
-#     titles_texts = []
-
-#     for link in linklist:
-        
-#         if 'full.html' in link:
-#         source = requests.get(link).text
-#         soup = BeautifulSoup(source, 'html.parser')
-#         texts = soup.find_all('blockquote')
-
-#             for text in texts:
-#                 title_text = []
-#                 for txt in text.find_all('a'):
-#                     title_text.append(txt.text)
-#                 title_text_string = ' '.join(title_text)
-    
-#         titles_texts.append(title_text_string)
-    
-#     return titles_texts
+    return fulltext_list
