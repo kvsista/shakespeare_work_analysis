@@ -1,5 +1,43 @@
 import requests
 from bs4 import BeautifulSoup
+import os
+import pickle
+
+def folder_structure():
+
+    # Let's create a folder named 'data'
+    data = 'data'
+    if not os.path.exists(data):
+        os.mkdir(data)
+        print("Folder Created: 'data'")
+    else:
+        print("Folder Exists: 'data'")
+    
+    # Let's create a folder named 'data/links'
+    links = data + '/links'
+    if not os.path.exists(links):
+        os.mkdir(links)
+        print("Folder Created: 'data/links'")
+    else:
+        print("Folder Exists: 'data/links'")
+    
+    # Let's create a folder named 'texts'
+    texts = data + '/texts'
+    if not os.path.exists(texts):
+        os.mkdir(texts)
+        print("Folder Created: 'data/texts'")
+    else:
+        print("Folder Exists: 'data/texts'")
+    
+    # Let's create a folder named 'tokens'
+    tokens = data + '/tokens'
+    if not os.path.exists(tokens):
+        os.mkdir(tokens)
+        print("Folder Created: 'data/tokens'")
+    else:
+        print("Folder Exists: 'data/tokens'")
+    
+
 
 def page_links(url):
     """
@@ -33,8 +71,12 @@ def page_links(url):
         for link in links:
             if '.html' in link:
                 internal_links.append(link)
-    
-    return home_links, internal_links
+
+    folder_structure()
+    pickle.dump(home_links, open("data/links/home_links.pkl", "wb"))
+    pickle.dump(internal_links, open("data/links/internal_links.pkl", "wb"))
+
+    return
 
 def textfromlink(linklist):
     """
@@ -43,7 +85,7 @@ def textfromlink(linklist):
     """
 
     fulltext_list = []
-
+    
     for link in linklist:
         if 'full.html' in link:
             source = requests.get(link).text
@@ -59,4 +101,7 @@ def textfromlink(linklist):
             
             fulltext_list.append(text_string)
 
-    return fulltext_list
+    folder_structure()
+    pickle.dump(fulltext_list, open("data/texts/texts_list.pkl", "wb"))
+
+    return
